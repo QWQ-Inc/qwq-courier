@@ -9,6 +9,7 @@ import {
   SsoBindingsAdmin,
   type SsoBindingRow,
 } from "@/components/system/sso-bindings-admin";
+import { DataIo } from "@/components/system/data-io";
 
 export default async function SystemPage() {
   await requireFeature("system");
@@ -54,6 +55,7 @@ export default async function SystemPage() {
       <div className="space-y-6">
         <SystemSettingsForm config={view} />
         <SsoBindingsAdmin rows={bindings} />
+        <DataIo />
       </div>
     </>
   );
