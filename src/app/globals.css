@@ -59,14 +59,14 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  /* 品牌：深色用偏淡的蓝 */
-  --primary: #6ea8f5;
-  --primary-hover: #82b5f7;
-  --primary-active: #aed0fb;
-  --primary-soft: rgb(110 168 245 / 0.18);
-  --primary-ring: rgb(110 168 245 / 0.35);
-  --primary-from: #7cb0f6;
-  --primary-to: #649ff2;
+  /* 品牌：深色用橙色 */
+  --primary: #f0883e;
+  --primary-hover: #f59b57;
+  --primary-active: #fbc89a;
+  --primary-soft: rgb(240 136 62 / 0.16);
+  --primary-ring: rgb(240 136 62 / 0.38);
+  --primary-from: #f6974f;
+  --primary-to: #ec7c31;
 
   --accent: #7cb7ff;
   --accent-soft: rgb(124 183 255 / 0.14);
