@@ -32,8 +32,8 @@ export function Modal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:items-center">
-      <div className="fixed inset-0 bg-slate-900/40" onClick={onClose} />
-      <div className="relative z-10 my-8 w-full max-w-lg rounded-2xl bg-white shadow-xl">
+      <div className="fixed inset-0 bg-black/40" onClick={onClose} />
+      <div className="relative z-10 my-8 w-full max-w-lg rounded-2xl bg-card shadow-xl">
         <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
           <h3 className="text-base font-semibold text-slate-900">{title}</h3>
           <button

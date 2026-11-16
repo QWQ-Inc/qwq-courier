@@ -32,7 +32,7 @@ function StatCard({
     indigo: "bg-indigo-50 text-indigo-600",
   };
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
+    <div className="rounded-xl border border-slate-200 bg-card p-5">
       <div className="flex items-center justify-between">
         <span className="text-sm text-slate-500">{label}</span>
         <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${tones[tone]}`}>
@@ -100,7 +100,7 @@ export default async function DashboardPage() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-5">
         {/* 各板块调用分布 */}
-        <div className="lg:col-span-3 rounded-xl border border-slate-200 bg-white p-5">
+        <div className="lg:col-span-3 rounded-xl border border-slate-200 bg-card p-5">
           <h2 className="text-sm font-semibold text-slate-900">{d.methodDistribution}</h2>
           {methodStats.length === 0 ? (
             <p className="mt-8 mb-6 text-center text-sm text-slate-400">{d.noCallsToday}</p>
@@ -127,7 +127,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* 配置概览 */}
-        <div className="lg:col-span-2 rounded-xl border border-slate-200 bg-white p-5">
+        <div className="lg:col-span-2 rounded-xl border border-slate-200 bg-card p-5">
           <h2 className="text-sm font-semibold text-slate-900">{d.configOverview}</h2>
           <div className="mt-4 grid grid-cols-2 gap-3">
             {[

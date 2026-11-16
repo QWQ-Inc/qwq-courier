@@ -51,7 +51,7 @@ export function NewFolderButton({
         className={
           compact
             ? "inline-flex items-center gap-1 rounded-md border border-slate-200 px-2 py-1 text-xs font-medium text-slate-500 hover:bg-slate-50"
-            : "inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+            : "inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-card px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
         }
       >
         <FolderPlus className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
@@ -208,7 +208,7 @@ export function MoveToFolderSelect({
           await moveToFolderAction(kind, itemId, v || undefined);
         });
       }}
-      className="max-w-[8rem] truncate rounded-md border border-slate-200 bg-white px-1.5 py-1 text-xs text-slate-500 outline-none hover:border-slate-300"
+      className="max-w-[8rem] truncate rounded-md border border-slate-200 bg-card px-1.5 py-1 text-xs text-slate-500 outline-none hover:border-slate-300"
     >
       <option value="">{t.uncategorized}</option>
       {folders.map((f) => (

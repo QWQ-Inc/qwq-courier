@@ -8,7 +8,7 @@ import { PageHeader } from "@/components/page-header";
 import type { MethodKey } from "@/lib/constants";
 
 const exportBtnCls =
-  "inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50";
+  "inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-card px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50";
 
 export default async function LogsPage({
   searchParams,
@@ -48,7 +48,7 @@ export default async function LogsPage({
         <select
           name="group"
           defaultValue={group}
-          className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm outline-none focus:border-indigo-500"
+          className="rounded-lg border border-slate-300 bg-card px-3 py-1.5 text-sm outline-none focus:border-indigo-500"
         >
           <option value="">{t.allGroups}</option>
           {groups.map((g) => (
@@ -59,7 +59,7 @@ export default async function LogsPage({
         </select>
         <button
           type="submit"
-          className="rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-slate-800"
+          className="rounded-lg border border-slate-300 bg-card px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
         >
           {t.filter}
         </button>
@@ -67,7 +67,7 @@ export default async function LogsPage({
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* 最近调用记录 */}
-        <div className="rounded-xl border border-slate-200 bg-white">
+        <div className="rounded-xl border border-slate-200 bg-card">
           <div className="flex items-center justify-between gap-2 border-b border-slate-100 px-5 py-4">
             <h2 className="text-sm font-semibold text-slate-900">
               {t.callsTitle}
@@ -121,7 +121,7 @@ export default async function LogsPage({
         </div>
 
         {/* 操作记录 */}
-        <div className="rounded-xl border border-slate-200 bg-white">
+        <div className="rounded-xl border border-slate-200 bg-card">
           <div className="flex items-center justify-between gap-2 border-b border-slate-100 px-5 py-4">
             <h2 className="text-sm font-semibold text-slate-900">{t.opsTitle}</h2>
             <a href="/api/export/logs?type=ops" className={exportBtnCls}>

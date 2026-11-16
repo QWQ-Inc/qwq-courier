@@ -245,7 +245,7 @@ export function ChannelDialog({
                 type="button"
                 onClick={loadVolcTemplates}
                 disabled={vtLoading || !cfg.accessKeyId}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-indigo-300 bg-white px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 disabled:opacity-50"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-indigo-300 bg-card px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 disabled:opacity-50"
               >
                 {vtLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Search className="h-3.5 w-3.5" />}
                 {vtLoading ? c.volcQuerying : c.volcQueryBtn}
@@ -261,7 +261,7 @@ export function ChannelDialog({
             {vtList && vtList.length > 0 && (
               <div className="mt-2 max-h-64 space-y-2 overflow-y-auto">
                 {vtList.map((tpl) => (
-                  <div key={tpl.secondTemplateId || tpl.templateId} className="rounded-lg border border-slate-200 bg-white p-2.5">
+                  <div key={tpl.secondTemplateId || tpl.templateId} className="rounded-lg border border-slate-200 bg-card p-2.5">
                     <div className="flex items-center gap-2">
                       <input
                         type="checkbox"
@@ -313,7 +313,7 @@ export function ChannelDialog({
                 <button
                   type="button"
                   onClick={toggleAll}
-                  className="rounded border border-slate-300 px-2 py-1 text-[11px] text-slate-600 hover:bg-white"
+                  className="rounded border border-slate-300 px-2 py-1 text-[11px] text-slate-600 hover:bg-card"
                 >
                   {c.importSelectAll}
                 </button>

@@ -1,8 +1,165 @@
 @import "tailwindcss";
 
+/*
+ * 风格采用 StackEnigma 设计系统（基于 Zeabur 开源设计系统，Apache-2.0）的
+ * 中性灰 / 排版 / 圆角 / 阴影 / 控件形态与深色模式；品牌色为本项目自定：
+ * 浅色=紫(indigo)，深色=偏淡的蓝。
+ * 做法：把应用现用的 Tailwind 工具类(indigo/slate/emerald/red/amber/sky)在
+ * @theme 里重映射到下列随 data-theme 翻转的 token，组件无需改动即整体换肤。
+ */
+
 :root {
-  --brand: #4f46e5;
-  --brand-dark: #4338ca;
+  /* 品牌：浅色保留紫色 */
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-active: #3730a3;
+  --primary-soft: #eef2ff;
+  --primary-ring: rgb(79 70 229 / 0.22);
+  --primary-from: #6366f1;
+  --primary-to: #4f46e5;
+
+  /* 蓝色强调（链接/信息） */
+  --accent: #2f8fe8;
+  --accent-soft: #e8f2fd;
+
+  /* 中性（StackEnigma zGray） */
+  --page: rgb(247 247 247);
+  --card: #fff;
+  --surface-2: rgb(246 245 248);
+  --surface-3: rgb(240 239 242);
+  --border: rgb(236 235 238);
+  --border-main: rgb(221 220 224);
+  --border-strong: rgb(208 206 212);
+  --text: #000;
+  --text-muted: rgb(101 97 107);
+  --text-faint: rgb(152 149 157);
+
+  /* 状态 */
+  --ok: #16a34a;
+  --ok-strong: #0b7a46;
+  --ok-soft: #e3f8ee;
+  --ok-dot: #22d180;
+  --danger: #d63b40;
+  --danger-strong: #af2f09;
+  --danger-soft: #feece7;
+  --danger-border: #f0cfca;
+  --warn: #8a5a00;
+  --warn-mid: #d97706;
+  --warn-soft: #fdf4dc;
+  --warn-border: #f2dfb3;
+
+  --scrollbar: rgb(208 206 212);
+
+  --font: "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "PingFang TC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --mono: "Geist Mono Variable", "Geist Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo,
+    Consolas, monospace;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  /* 品牌：深色用偏淡的蓝 */
+  --primary: #6ea8f5;
+  --primary-hover: #82b5f7;
+  --primary-active: #aed0fb;
+  --primary-soft: rgb(110 168 245 / 0.18);
+  --primary-ring: rgb(110 168 245 / 0.35);
+  --primary-from: #7cb0f6;
+  --primary-to: #649ff2;
+
+  --accent: #7cb7ff;
+  --accent-soft: rgb(124 183 255 / 0.14);
+
+  --page: rgb(9 13 22);
+  --card: rgb(19 27 42);
+  --surface-2: rgb(26 36 54);
+  --surface-3: rgb(32 43 63);
+  --border: rgb(35 46 66);
+  --border-main: rgb(44 57 80);
+  --border-strong: rgb(58 73 99);
+  --text: rgb(226 232 240);
+  --text-muted: rgb(152 164 184);
+  --text-faint: rgb(104 118 141);
+
+  --ok: #3fb950;
+  --ok-strong: #6fe0aa;
+  --ok-soft: rgb(63 185 80 / 0.15);
+  --ok-dot: #22d180;
+  --danger: #f47759;
+  --danger-strong: rgb(250 169 148);
+  --danger-soft: rgb(244 119 89 / 0.14);
+  --danger-border: rgb(250 169 148 / 0.3);
+  --warn: #f5d27a;
+  --warn-mid: #f5d27a;
+  --warn-soft: rgb(245 210 122 / 0.12);
+  --warn-border: rgb(245 210 122 / 0.25);
+
+  --scrollbar: rgb(44 57 80);
+}
+
+/* 把 Tailwind 调色板映射到上面的 token（随主题翻转） */
+@theme {
+  --font-sans: var(--font);
+  --font-mono: var(--mono);
+
+  /* 品牌 indigo → primary */
+  --color-indigo-50: var(--primary-soft);
+  --color-indigo-100: var(--primary-soft);
+  --color-indigo-200: var(--primary-soft);
+  --color-indigo-300: var(--primary-ring);
+  --color-indigo-400: var(--primary);
+  --color-indigo-500: var(--primary);
+  --color-indigo-600: var(--primary);
+  --color-indigo-700: var(--primary-hover);
+  --color-indigo-800: var(--primary-active);
+  --color-indigo-900: var(--primary-active);
+
+  /* 中性 slate → StackEnigma 灰 */
+  --color-slate-50: var(--surface-2);
+  --color-slate-100: var(--border);
+  --color-slate-200: var(--border-main);
+  --color-slate-300: var(--border-strong);
+  --color-slate-400: var(--text-faint);
+  --color-slate-500: var(--text-muted);
+  --color-slate-600: var(--text-muted);
+  --color-slate-700: var(--text);
+  --color-slate-800: var(--text);
+  --color-slate-900: var(--text);
+
+  /* 状态 emerald → ok */
+  --color-emerald-50: var(--ok-soft);
+  --color-emerald-100: var(--ok-soft);
+  --color-emerald-200: var(--ok-soft);
+  --color-emerald-500: var(--ok-dot);
+  --color-emerald-600: var(--ok-strong);
+  --color-emerald-700: var(--ok-strong);
+
+  /* red → danger */
+  --color-red-50: var(--danger-soft);
+  --color-red-100: var(--danger-soft);
+  --color-red-200: var(--danger-border);
+  --color-red-300: var(--danger-border);
+  --color-red-500: var(--danger);
+  --color-red-600: var(--danger-strong);
+  --color-red-700: var(--danger-strong);
+
+  /* amber → warn */
+  --color-amber-50: var(--warn-soft);
+  --color-amber-200: var(--warn-border);
+  --color-amber-300: var(--warn-border);
+  --color-amber-500: var(--warn-mid);
+  --color-amber-600: var(--warn);
+  --color-amber-700: var(--warn);
+  --color-amber-800: var(--warn);
+
+  /* sky → accent */
+  --color-sky-50: var(--accent-soft);
+  --color-sky-600: var(--accent);
+
+  /* 卡片表面（替换 bg-white，随主题翻转） */
+  --color-card: var(--card);
+  --color-page: var(--page);
 }
 
 html,
@@ -11,15 +168,14 @@ body {
 }
 
 body {
-  background: #f5f6f8;
-  color: #0f172a;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC",
-    "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font);
   -webkit-font-smoothing: antialiased;
 }
 
 /* 细滚动条 */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-color: var(--scrollbar) transparent;
 }

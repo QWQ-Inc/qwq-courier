@@ -7,6 +7,7 @@ const zh = {
     save: "保存",
     cancel: "取消",
     loading: "加载中…",
+    themeToggle: "切换深色/浅色",
   },
   nav: {
     brandTitle: "QWQCourier",
@@ -518,6 +519,7 @@ const en: Dictionary = {
     save: "Save",
     cancel: "Cancel",
     loading: "Loading…",
+    themeToggle: "Toggle dark/light",
   },
   nav: {
     brandTitle: "QWQCourier",

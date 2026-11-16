@@ -115,7 +115,7 @@ export function ChannelsView({
       </div>
 
       {filtered.length === 0 && folders.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center">
+        <div className="rounded-xl border border-dashed border-slate-300 bg-card p-12 text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
             <Boxes className="h-6 w-6" />
           </div>
@@ -187,7 +187,7 @@ function Tab({
       className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
         active
           ? "bg-indigo-600 text-white"
-          : "bg-white text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
+          : "bg-card text-slate-600 ring-1 ring-slate-200 hover:bg-slate-50"
       }`}
     >
       {children}
@@ -277,7 +277,7 @@ function GroupCard({
   );
 
   return (
-    <div className={`rounded-xl border border-slate-200 bg-white ${group.enabled ? "" : "opacity-70"}`}>
+    <div className={`rounded-xl border border-slate-200 bg-card ${group.enabled ? "" : "opacity-70"}`}>
       {/* 头部 */}
       <div className="flex items-start justify-between gap-2 border-b border-slate-100 p-4">
         <div className="min-w-0">

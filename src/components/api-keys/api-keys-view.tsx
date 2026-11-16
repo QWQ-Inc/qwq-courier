@@ -39,7 +39,7 @@ function CopyButton({ text, label, copied }: { text: string; label: string; copi
         setDone(true);
         setTimeout(() => setDone(false), 1500);
       }}
-      className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50"
+      className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-card px-2 py-1 text-xs font-medium text-slate-600 hover:bg-slate-50"
     >
       {done ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
       {done ? copied : label}
@@ -80,7 +80,7 @@ export function ApiKeysView({
           </div>
           <p className="mt-1 text-sm text-amber-700">{t.newKeyWarn}</p>
           <div className="mt-3 flex items-center gap-2">
-            <code className="flex-1 overflow-x-auto rounded-lg bg-white px-3 py-2 text-sm text-slate-800">
+            <code className="flex-1 overflow-x-auto rounded-lg bg-card px-3 py-2 text-sm text-slate-800">
               {createdKey}
             </code>
             <CopyButton text={createdKey} label={t.copy} copied={t.copied} />
@@ -96,7 +96,7 @@ export function ApiKeysView({
       )}
 
       {/* 接口地址 + 示例 */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
+      <div className="rounded-xl border border-slate-200 bg-card p-5">
         <h2 className="text-sm font-semibold text-slate-900">{t.baseUrlTitle}</h2>
         <p className="mt-1 text-sm text-slate-500">{t.baseUrlHint}</p>
         <div className="mt-3 flex items-center gap-2">
@@ -107,14 +107,14 @@ export function ApiKeysView({
         </div>
         <div className="mt-4">
           <div className="mb-1 text-xs font-medium text-slate-500">{t.example}</div>
-          <pre className="overflow-x-auto rounded-lg bg-slate-900 p-3 text-xs leading-relaxed text-slate-100">
+          <pre className="overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed text-slate-700">
             {curl}
           </pre>
         </div>
       </div>
 
       {/* 兼容接入：让别的推送系统按各自格式发进来 */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
+      <div className="rounded-xl border border-slate-200 bg-card p-5">
         <h2 className="text-sm font-semibold text-slate-900">{t.compatTitle}</h2>
         <p className="mt-1 text-sm text-slate-500">{t.compatHint}</p>
         <div className="mt-3 space-y-2.5">
@@ -137,7 +137,7 @@ export function ApiKeysView({
       </div>
 
       {/* 默认限速设置 */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
+      <div className="rounded-xl border border-slate-200 bg-card p-5">
         <h2 className="text-sm font-semibold text-slate-900">{t.defaultRateLimit}</h2>
         <p className="mt-1 text-sm text-slate-500">{t.defaultRateLimitHint}</p>
         <form action={setDefaultRateLimitAction} className="mt-3 flex items-center gap-2">
@@ -151,7 +151,7 @@ export function ApiKeysView({
           <span className="text-sm text-slate-500">{t.perMin}</span>
           <button
             type="submit"
-            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+            className="rounded-lg border border-slate-300 bg-card px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
           >
             {t.save}
           </button>
@@ -175,7 +175,7 @@ export function ApiKeysView({
         </div>
 
         {keys.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center">
+          <div className="rounded-xl border border-dashed border-slate-300 bg-card p-12 text-center">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
               <KeyRound className="h-6 w-6" />
             </div>
@@ -232,7 +232,7 @@ function KeyCard({ k, defaultRateLimit }: { k: KeyDTO; defaultRateLimit: number 
     : t.never;
 
   return (
-    <div className={`rounded-xl border border-slate-200 bg-white p-4 ${k.enabled ? "" : "opacity-70"}`}>
+    <div className={`rounded-xl border border-slate-200 bg-card p-4 ${k.enabled ? "" : "opacity-70"}`}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">

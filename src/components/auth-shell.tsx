@@ -1,6 +1,7 @@
 import { Send } from "lucide-react";
 import { getI18n } from "@/lib/i18n/server";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export async function AuthShell({
   title,
@@ -14,7 +15,8 @@ export async function AuthShell({
   const { dict } = await getI18n();
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-100">
-      <div className="absolute right-4 top-4">
+      <div className="absolute right-4 top-4 flex items-center gap-2">
+        <ThemeToggle />
         <LocaleSwitcher />
       </div>
       <div className="w-full max-w-md">
@@ -25,7 +27,7 @@ export async function AuthShell({
           <h1 className="mt-4 text-2xl font-bold text-slate-900">{title}</h1>
           {subtitle && <p className="mt-1 text-sm text-slate-500">{subtitle}</p>}
         </div>
-        <div className="rounded-2xl bg-white p-8 shadow-xl ring-1 ring-slate-200/70">
+        <div className="rounded-2xl bg-card p-8 shadow-xl ring-1 ring-slate-200/70">
           {children}
         </div>
         <p className="mt-6 text-center text-xs text-slate-400">{dict.common.tagline}</p>

@@ -94,7 +94,7 @@ export function TestConsole({
 
   if (channels.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-slate-300 bg-white p-12 text-center">
+      <div className="rounded-xl border border-dashed border-slate-300 bg-card p-12 text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-400">
           <FlaskConical className="h-6 w-6" />
         </div>
@@ -105,7 +105,7 @@ export function TestConsole({
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <form action={action} className="space-y-4 rounded-xl border border-slate-200 bg-white p-5">
+      <form action={action} className="space-y-4 rounded-xl border border-slate-200 bg-card p-5">
         <input type="hidden" name="mode" value={mode} />
 
         <Field label={t.modeLabel}>
@@ -184,7 +184,7 @@ export function TestConsole({
                   <button
                     type="button"
                     onClick={handleExtract}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-semibold text-white hover:bg-slate-800"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-card px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"
                   >
                     <Wand2 className="h-3.5 w-3.5" />
                     {t.extractBtn}
@@ -280,7 +280,7 @@ export function TestConsole({
             {state.detail && (
               <div className="mt-3">
                 <div className="mb-1 text-xs font-medium text-slate-500">{t.response}</div>
-                <pre className="max-h-48 overflow-auto rounded-lg bg-white/70 p-2 text-xs text-slate-600">
+                <pre className="max-h-48 overflow-auto rounded-lg bg-card/70 p-2 text-xs text-slate-600">
                   {state.detail}
                 </pre>
               </div>

@@ -18,6 +18,7 @@ import {
 import { logoutAction } from "@/lib/actions/auth";
 import { useI18n } from "./i18n-provider";
 import { LocaleSwitcher } from "./locale-switcher";
+import { ThemeToggle } from "./theme-toggle";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { RoleKey } from "@/lib/constants";
 import { canAccessFeature } from "@/lib/permissions";
@@ -69,7 +70,7 @@ export function Sidebar({
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col border-r border-slate-200 bg-white">
+    <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col border-r border-slate-200 bg-card">
       {/* 品牌 */}
       <div className="flex items-center gap-2.5 px-5 py-5">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-600 text-white">
@@ -120,7 +121,8 @@ export function Sidebar({
 
       {/* 语言切换 + 用户 + 退出 */}
       <div className="border-t border-slate-200 p-3">
-        <div className="mb-2 flex justify-end px-2">
+        <div className="mb-2 flex items-center justify-end gap-2 px-2">
+          <ThemeToggle />
           <LocaleSwitcher />
         </div>
         <div className="flex items-center gap-3 rounded-lg px-2 py-2">

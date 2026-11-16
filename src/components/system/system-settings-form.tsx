@@ -23,7 +23,7 @@ function Copyable({ text }: { text: string }) {
   const [done, setDone] = useState(false);
   return (
     <div className="flex items-center gap-2">
-      <code className="flex-1 overflow-x-auto rounded-lg bg-white px-3 py-2 text-sm text-slate-700">
+      <code className="flex-1 overflow-x-auto rounded-lg bg-card px-3 py-2 text-sm text-slate-700">
         {text}
       </code>
       <button
@@ -33,7 +33,7 @@ function Copyable({ text }: { text: string }) {
           setDone(true);
           setTimeout(() => setDone(false), 1500);
         }}
-        className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-2 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+        className="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-card px-2 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
       >
         {done ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
       </button>
@@ -61,7 +61,7 @@ export function SystemSettingsForm({ config }: { config: SysConfigView }) {
   return (
     <form action={action} className="space-y-6">
       {/* 应用 */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
+      <div className="rounded-xl border border-slate-200 bg-card p-5">
         <h2 className="text-sm font-semibold text-slate-900">{t.appSection}</h2>
         <div className="mt-4">
           <Field label={t.appUrl} help={t.appUrlHint}>
@@ -71,7 +71,7 @@ export function SystemSettingsForm({ config }: { config: SysConfigView }) {
       </div>
 
       {/* qwq-sso */}
-      <div className="rounded-xl border border-slate-200 bg-white p-5">
+      <div className="rounded-xl border border-slate-200 bg-card p-5">
         <h2 className="text-sm font-semibold text-slate-900">{t.ssoSection}</h2>
         <p className="mt-1 text-xs text-slate-500">{t.ssoSectionHint}</p>
         <div className="mt-4 space-y-4">

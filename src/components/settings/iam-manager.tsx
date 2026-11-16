@@ -99,7 +99,7 @@ export function IamManager({ accounts }: { accounts: IamDTO[] }) {
   const [editing, setEditing] = useState<IamDTO | null>(null);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
+    <div className="rounded-xl border border-slate-200 bg-card p-5">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-sm font-semibold text-slate-900">{t.iamTitle}</h2>

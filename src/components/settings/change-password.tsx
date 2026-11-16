@@ -15,7 +15,7 @@ export function ChangePassword({ hasPassword }: { hasPassword: boolean }) {
   );
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5">
+    <div className="rounded-xl border border-slate-200 bg-card p-5">
       <h2 className="text-sm font-semibold text-slate-900">{t.changePassword}</h2>
       <p className="mt-1 text-sm text-slate-500">{t.changePasswordHint}</p>
       <form action={action} className="mt-4 max-w-sm space-y-3">
