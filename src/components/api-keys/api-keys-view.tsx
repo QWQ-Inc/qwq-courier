@@ -24,6 +24,7 @@ export type KeyDTO = {
   allowedIps: string;
   rateLimitPerMin: number | null;
   allowIam: boolean;
+  connectClient: string | null;
   enabled: boolean;
   lastUsedAt: string | null;
   createdAt: string;
@@ -247,6 +248,11 @@ function KeyCard({ k, defaultRateLimit }: { k: KeyDTO; defaultRateLimit: number 
             {k.allowIam && (
               <span className="rounded-md bg-amber-50 px-1.5 py-0.5 text-xs font-medium text-amber-600">
                 {t.allowIamBadge}
+              </span>
+            )}
+            {k.connectClient && (
+              <span className="rounded-md bg-sky-50 px-1.5 py-0.5 text-xs font-medium text-sky-600">
+                {t.connectBadge}：{k.connectClient}
               </span>
             )}
             {!k.enabled && <span className="text-xs text-slate-400">· {t.disabledTag}</span>}

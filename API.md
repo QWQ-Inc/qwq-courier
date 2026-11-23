@@ -22,7 +22,8 @@
 12. [常见问题 FAQ](#12-常见问题-faq)
 13. [兼容其他推送系统（Server酱 / PushPlus / Bark / 通用）](#13-兼容其他推送系统server酱--pushplus--bark--通用)
 14. [IAM 子账号管理 API（外部平台）](#14-iam-子账号管理-api外部平台)
-15. [附录 A：qwq-sso 单点登录（管理员）](#附录-aqwq-sso-单点登录管理员)
+15. [外部平台连接（一键连接 / 发现）](#15-外部平台连接一键连接--发现)
+16. [附录 A：qwq-sso 单点登录（管理员）](#附录-aqwq-sso-单点登录管理员)
 
 ---
 
@@ -99,6 +100,8 @@ Authorization: Bearer qwq_live_xxxxxxxxxxxxxxxx
 | GET  | `/api/v1/templates?code=<编号>` | 查询单个模板及其变量骨架 |
 | POST | `/api/compat/*` | 兼容其他推送系统（Server酱/PushPlus/Bark/通用），见 [第 13 节](#13-兼容其他推送系统server酱--pushplus--bark--通用) |
 | —    | `/api/v1/iam`, `/api/v1/iam/:id` | IAM 子账号管理（外部平台增删改/停用启用），见 [第 14 节](#14-iam-子账号管理-api外部平台) |
+| GET  | `/.well-known/qwq-courier.json` · `/api/v1/groups` · `/api/v1/whoami` | 发现文档与只读接口，见 [第 15 节](#15-外部平台连接一键连接--发现) |
+| —    | `/connect/authorize` · `/api/v1/connect/{token,revoke}` | 外部平台一键连接（OAuth2.0+PKCE），见 [第 15 节](#15-外部平台连接一键连接--发现) |
 
 ---
 
@@ -655,6 +658,68 @@ curl -X POST https://qwq-message.zeabur.app/api/v1/iam \
 | 403 | 密钥未开启「可管理 IAM」，或属主不是 OWNER/ADMIN |
 | 404 | 子账号不存在（或不属于该密钥属主） |
 | 409 | 用户名已存在 / 该 qwq-sso 身份已被别的账号绑定 |
+
+---
+
+## 15. 外部平台连接（一键连接 / 发现）
+
+供部署平台等外部系统「从已有实例导入」qwq-courier 作为通知渠道：用户在外部平台点一下，
+到本实例登录批准，外部平台即拿到一枚**受限密钥**，无需手动复制密钥、手填分组/模板编号。
+
+### 15.1 发现文档 `GET /.well-known/qwq-courier.json`（公开、无鉴权）
+
+```json
+{
+  "product": "qwq-courier",
+  "version": "1.0.0",
+  "apiBase": "https://<本实例>/api/v1",
+  "connect": {
+    "authorizeUrl": "https://<本实例>/connect/authorize",
+    "tokenUrl": "https://<本实例>/api/v1/connect/token",
+    "scopes": ["send", "templates:read", "groups:read"]
+  },
+  "methods": ["WEBHOOK","SMS","EMAIL","WECHAT_MP","FEISHU","DINGTALK","WECOM"]
+}
+```
+
+不返回任何分组/模板/用户/渠道配置。`Cache-Control: max-age=300`。
+
+### 15.2 只读接口（Bearer 密钥，同主接口鉴权）
+
+| 接口 | 返回 |
+|------|------|
+| `GET /api/v1/groups` | 当前密钥**有权限 method** 下、已启用的分组：`{code,name,method,strategy}`（不含渠道凭证） |
+| `GET /api/v1/whoami` | 当前密钥信息：`{id,name,type,scopeType,scopes,prefix,createdAt,source}` + `instance.version` |
+
+### 15.3 一键连接（OAuth 2.0 授权码 + PKCE）
+
+**① 授权页** `GET /connect/authorize`，参数：`client_name`、`redirect_uri`、`state`、
+`code_challenge`、`code_challenge_method=S256`、`scope`。
+
+- 未登录先走本实例登录（含 qwq-sso），登录后回到授权页。
+- 用户看到：申请方、回跳域名、申请权限；**勾选允许的分发方式**、填密钥名称后批准。
+  只有 OWNER/ADMIN 或有「API 管理」权限的子账号能批准。
+- `redirect_uri` 必须 https（`localhost`/`127.0.0.1` 例外），不带 `#`，换码时须完全一致。
+- 批准 → `302 redirect_uri?code=…&state=…`（码随机、只存 sha256、**5 分钟单次有效**）；
+  拒绝 → `redirect_uri?error=access_denied&state=…`；参数非法 → 错误页，**绝不回跳**。
+
+**② 换取密钥** `POST /api/v1/connect/token`（JSON 或表单）：
+
+```bash
+curl -X POST https://<本实例>/api/v1/connect/token \
+  -H "Content-Type: application/json" \
+  -d '{"grant_type":"authorization_code","code":"<授权码>","redirect_uri":"https://你的平台/cb","code_verifier":"<PKCE verifier>"}'
+# → {"api_key":"qwq_live_…","key_id":"…","scopes":["WEBHOOK"],"api_base":"https://<本实例>/api/v1"}
+```
+
+校验失败（码不存在/过期/已用、redirect_uri 不符、PKCE 不符）一律 `400 {"error":"invalid_grant"}`，
+且该码立即作废。成功会签发一枚**生产·受限(SCOPED)** 密钥（scopes = 所选方式、`allowIam=false`），
+明文只在此返回一次。
+
+**③ 撤销** `POST /api/v1/connect/revoke`（Bearer 该密钥本身）→ `{"success":true}`，停用该密钥。
+后台「API 管理」能看到这些密钥并标注来源「外部平台连接：<client_name>」，可随时停用。
+
+> 授权与换取接口均有每 IP 限速。以上接口不改变 `/api/v1/send`、`/templates`、`/compat/*`、`/iam` 的行为。
 
 ---
 

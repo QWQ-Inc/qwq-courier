@@ -124,6 +124,7 @@ model ApiKey {
   allowedIps      String    @default("[]") // JSON：生产密钥可信IP
   rateLimitPerMin Int? // 测试密钥慢速限制（每分钟次数）
   allowIam        Boolean   @default(false) // 允许用该密钥通过 API 管理 IAM 子账号（高权限，仅 OWNER/ADMIN 可开）
+  connectClient   String? // 来源：外部平台「一键连接」签发时记来源名（如 StackEnigma · 工作区）
   enabled         Boolean   @default(true)
   lastUsedAt      DateTime?
   createdAt       DateTime  @default(now())
@@ -172,4 +173,21 @@ model Setting {
   key       String   @id
   value     String   @default("{}") // JSON
   updatedAt DateTime @updatedAt
+}
+
+/// 外部平台「一键连接」的一次性授权码（OAuth 2.0 授权码 + PKCE）
+model ConnectCode {
+  id            String    @id @default(cuid())
+  codeHash      String    @unique // sha256(授权码)，只存哈希
+  clientName    String // 外部平台名（client_name）
+  redirectUri   String // 回跳地址，换码时须完全一致
+  codeChallenge String // PKCE S256 challenge
+  scopes        String    @default("[]") // JSON：批准的分发方式
+  keyName       String // 将签发的密钥名
+  approverId    String // 批准人(用户)id，密钥以其身份签发
+  expiresAt     DateTime // 5 分钟有效
+  usedAt        DateTime? // 单次使用，用后置
+  createdAt     DateTime  @default(now())
+
+  @@index([expiresAt])
 }

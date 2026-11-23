@@ -33,6 +33,7 @@ export default async function ApiKeysPage() {
     allowedIps: k.allowedIps,
     rateLimitPerMin: k.rateLimitPerMin,
     allowIam: k.allowIam,
+    connectClient: k.connectClient,
     enabled: k.enabled,
     lastUsedAt: k.lastUsedAt ? k.lastUsedAt.toISOString() : null,
     createdAt: k.createdAt.toISOString(),
