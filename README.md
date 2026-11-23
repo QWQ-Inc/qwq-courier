@@ -85,7 +85,7 @@ curl -X POST http://localhost:3000/api/v1/send \
 
 **外部平台一键连接**：部署平台等外部系统可通过 OAuth2.0+PKCE「从已有实例导入」qwq-courier
 作为通知渠道，用户登录批准后即拿到受限密钥，无需手动复制。发现文档 `GET /.well-known/qwq-courier.json`，
-详见 [API.md 第 15 节](./API.md#15-外部平台连接一键连接--发现)。
+详见 [API.md 第 15 节](./API.md#15-外部平台连接一键连接--发现)；端到端示例见 [`examples/connect-demo.mjs`](./examples/connect-demo.mjs)。
 
 ## 渠道实现状态
 
